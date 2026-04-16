@@ -1,23 +1,23 @@
-// 1. GESTÃO DE DADOS (Simulando um Banco de Dados)
-const servicos = [
-    { titulo: "Energia Solar", desc: "Instalação de painéis inteligentes." },
-    { titulo: "Gestão de Resíduos", desc: "Software para rastreio de logística reversa." },
-    { titulo: "Consultoria ESG", desc: "Adequação ambiental para empresas." }
+// 1. GESTÃO DE DADOS (Simulando API)
+const curiosidades = [
+    { titulo: "Diplomatas da Natureza", texto: "Elas se dão bem com quase todos os animais, de pássaros a jacarés." },
+    { titulo: "Excelentes Nadadoras", texto: "Possuem membranas interdigitais que as tornam ágeis na água." },
+    { titulo: "Dentes Sem Fim", texto: "Seus dentes incisivos crescem continuamente para compensar o desgaste." }
 ];
 
 const faqs = [
-    { pergunta: "Como funciona a EcoTech?", resposta: "Focamos em tecnologia de baixo impacto." },
-    { pergunta: "Atendem todo o Brasil?", resposta: "Sim, através de nossa rede de parceiros." }
+    { p: "Onde elas vivem?", r: "Em grupos próximos a corpos d'água na América do Sul." },
+    { p: "O que comem?", r: "São herbívoras, alimentando-se principalmente de gramíneas e plantas aquáticas." }
 ];
 
 // 2. RENDERIZAÇÃO DINÂMICA
-function renderizarConteudo() {
-    const container = document.getElementById('services-container');
-    servicos.forEach(item => {
-        container.innerHTML += `
+function initContent() {
+    const grid = document.getElementById('features-grid');
+    curiosidades.forEach(item => {
+        grid.innerHTML += `
             <article class="card">
                 <h3>${item.titulo}</h3>
-                <p>${item.desc}</p>
+                <p>${item.texto}</p>
             </article>
         `;
     });
@@ -25,44 +25,33 @@ function renderizarConteudo() {
     const faqContainer = document.getElementById('faq-container');
     faqs.forEach((item, index) => {
         faqContainer.innerHTML += `
-            <div class="faq-item" onclick="toggleFaq(${index})">
-                <strong>${item.pergunta}</strong>
-                <div id="faq-${index}" class="faq-content">${item.resposta}</div>
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false" onclick="toggleAccordion(this)">
+                    ${item.p}
+                </button>
+                <div class="accordion-content">
+                    <p>${item.r}</p>
+                </div>
             </div>
         `;
     });
 }
 
-// 3. ACESSIBILIDADE: CONTROLE DE FONTE E CONTRASTE
-let fontSize = 100;
-document.getElementById('btn-font-up').addEventListener('click', () => {
-    fontSize += 10;
-    document.body.style.fontSize = `${fontSize}%`;
-});
+// 3. ACESSIBILIDADE E CONTROLES
+let currentFontSize = 16;
 
-document.getElementById('btn-font-down').addEventListener('click', () => {
-    fontSize -= 10;
-    document.body.style.fontSize = `${fontSize}%`;
-});
+document.getElementById('btn-font-up').onclick = () => {
+    currentFontSize += 2;
+    document.documentElement.style.setProperty('--font-base', currentFontSize + 'px');
+};
 
-document.getElementById('btn-contrast').addEventListener('click', () => {
+document.getElementById('btn-font-down').onclick = () => {
+    if(currentFontSize > 12) currentFontSize -= 2;
+    document.documentElement.style.setProperty('--font-base', currentFontSize + 'px');
+};
+
+document.getElementById('btn-contrast').onclick = () => {
     document.body.classList.toggle('high-contrast');
-});
+};
 
-// 4. ANIMAÇÃO SCROLL REVEAL
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('reveal-active');
-    });
-});
-
-document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
-
-// 5. LÓGICA DO ACORDEÃO
-function toggleFaq(index) {
-    const content = document.getElementById(`faq-${index}`);
-    content.classList.toggle('active');
-}
-
-// Inicialização
-window.onload = renderizarConteudo;
+//
