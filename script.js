@@ -1,72 +1,68 @@
-/* --- VARIÁVEIS DO SISTEMA --- */
-:root {
-    --primary: #2d6a4f;
-    --secondary: #95d5b2;
-    --dark: #1b4332;
-    --light: #f8f9fa;
-    --text: #333;
-    --radius: 12px;
-    --gap: 20px;
-    --font-size-base: 16px;
-    --transition: all 0.3s ease;
+// 1. GESTÃO DE DADOS (Simulando um Banco de Dados)
+const servicos = [
+    { titulo: "Energia Solar", desc: "Instalação de painéis inteligentes." },
+    { titulo: "Gestão de Resíduos", desc: "Software para rastreio de logística reversa." },
+    { titulo: "Consultoria ESG", desc: "Adequação ambiental para empresas." }
+];
+
+const faqs = [
+    { pergunta: "Como funciona a EcoTech?", resposta: "Focamos em tecnologia de baixo impacto." },
+    { pergunta: "Atendem todo o Brasil?", resposta: "Sim, através de nossa rede de parceiros." }
+];
+
+// 2. RENDERIZAÇÃO DINÂMICA
+function renderizarConteudo() {
+    const container = document.getElementById('services-container');
+    servicos.forEach(item => {
+        container.innerHTML += `
+            <article class="card">
+                <h3>${item.titulo}</h3>
+                <p>${item.desc}</p>
+            </article>
+        `;
+    });
+
+    const faqContainer = document.getElementById('faq-container');
+    faqs.forEach((item, index) => {
+        faqContainer.innerHTML += `
+            <div class="faq-item" onclick="toggleFaq(${index})">
+                <strong>${item.pergunta}</strong>
+                <div id="faq-${index}" class="faq-content">${item.resposta}</div>
+            </div>
+        `;
+    });
 }
 
-/* --- MODO ALTO CONTRASTE --- */
-body.high-contrast {
-    --primary: #ffff00;
-    --secondary: #ffffff;
-    --dark: #000000;
-    --light: #000000;
-    --text: #ffffff;
+// 3. ACESSIBILIDADE: CONTROLE DE FONTE E CONTRASTE
+let fontSize = 100;
+document.getElementById('btn-font-up').addEventListener('click', () => {
+    fontSize += 10;
+    document.body.style.fontSize = `${fontSize}%`;
+});
+
+document.getElementById('btn-font-down').addEventListener('click', () => {
+    fontSize -= 10;
+    document.body.style.fontSize = `${fontSize}%`;
+});
+
+document.getElementById('btn-contrast').addEventListener('click', () => {
+    document.body.classList.toggle('high-contrast');
+});
+
+// 4. ANIMAÇÃO SCROLL REVEAL
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('reveal-active');
+    });
+});
+
+document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+// 5. LÓGICA DO ACORDEÃO
+function toggleFaq(index) {
+    const content = document.getElementById(`faq-${index}`);
+    content.classList.toggle('active');
 }
 
-/* --- RESET & BASE --- */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { 
-    font-family: 'Segoe UI', sans-serif; 
-    font-size: var(--font-size-base);
-    background-color: var(--light);
-    color: var(--text);
-    line-height: 1.6;
-}
-
-/* --- GRID & LAYOUT (Editável) --- */
-.grid-layout {
-    display: grid;
-    gap: var(--gap);
-    padding: var(--gap);
-    /* Mobile: 1 coluna */
-    grid-template-columns: 1fr; 
-}
-
-@media (min-width: 768px) {
-    .grid-layout {
-        /* Tablet/Desktop: 3 colunas */
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-/* --- COMPONENTES --- */
-.card {
-    background: white;
-    padding: 1.5rem;
-    border-radius: var(--radius);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    border: 1px solid var(--secondary);
-}
-
-.scroll-reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: 0.8s ease-out;
-}
-
-.reveal-active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Estilo do Acordeão */
-.faq-item { border-bottom: 1px solid var(--secondary); cursor: pointer; }
-.faq-content { display: none; padding: 10px; }
-.faq-content.active { display: block; }
+// Inicialização
+window.onload = renderizarConteudo;
