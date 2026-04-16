@@ -3,42 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoTech | Soluções Sustentáveis</title>
+    <title>CapyMundo | A Vida Zen das Capivaras</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <nav aria-label="Navegação Principal">
-            <div class="logo">EcoTech</div>
-            <div class="accessibility-controls">
-                <button id="btn-contrast" aria-label="Alternar Alto Contraste">🌓 Contraste</button>
-                <button id="btn-font-up" aria-label="Aumentar Fonte">A+</button>
-                <button id="btn-font-down" aria-label="Diminuir Fonte">A-</button>
+        <nav aria-label="Menu principal">
+            <div class="logo">🐾 CapyMundo</div>
+            <div class="controls" role="group" aria-label="Ferramentas de acessibilidade">
+                <button id="btn-contrast" title="Alternar Alto Contraste">🌓</button>
+                <button id="btn-font-up" title="Aumentar fonte">A+</button>
+                <button id="btn-font-down" title="Diminuir fonte">A-</button>
             </div>
         </nav>
     </header>
 
     <main>
-        <section class="hero scroll-reveal">
-            <h1>Inovação que respeita o planeta</h1>
-            <p>Tecnologia Full-Stack a serviço do meio ambiente.</p>
+        <section class="hero scroll-reveal" aria-labelledby="hero-title">
+            <h1 id="hero-title">O Maior Roedor, O Maior Coração.</h1>
+            <p>Descubra por que as capivaras são as rainhas da coexistência pacífica.</p>
         </section>
 
-        <section id="services" class="scroll-reveal" aria-labelledby="services-title">
-            <h2 id="services-title">Nossos Serviços</h2>
-            <div id="services-container" class="grid-layout">
+        <section id="features" class="scroll-reveal" aria-labelledby="features-title">
+            <h2 id="features-title">Curiosidades de Capivara</h2>
+            <div id="features-grid" class="grid-container">
                 </div>
         </section>
 
-        <section class="faq scroll-reveal">
-            <h2>Dúvidas Frequentes</h2>
+        <section class="faq-section scroll-reveal" aria-labelledby="faq-title">
+            <h2 id="faq-title">Dúvidas Comuns</h2>
             <div id="faq-container">
                 </div>
         </section>
     </main>
 
     <footer class="scroll-reveal">
-        <p>&copy; 2024 EcoTech. Desenvolvido com foco em Acessibilidade.</p>
+        <p>&copy; 2024 CapyMundo - Feito com foco em UX e respeito à fauna.</p>
     </footer>
 
     <script src="script.js"></script>
